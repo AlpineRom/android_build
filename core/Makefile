@@ -153,7 +153,7 @@ ifeq ($(TARGET_BUILD_VARIANT),user)
   endif
 else
   # Non-user builds should show detailed build information
-  BUILD_DISPLAY_ID := $(build_desc)
+  BUILD_DISPLAY_ID := $(PLATFORM_VERSION) $(BUILD_ID)
 endif
 
 # Whether there is default locale set in PRODUCT_PROPERTY_OVERRIDES
@@ -1442,7 +1442,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	   --override_device=$(override_device) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CM_TARGET_PACKAGE := $(PRODUCT_OUT)/cm-$(CM_VERSION).zip
+CM_TARGET_PACKAGE := $(PRODUCT_OUT)/alpine-$(CM_VERSION).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
