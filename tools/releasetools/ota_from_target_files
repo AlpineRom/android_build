@@ -447,12 +447,14 @@ def WriteFullOTAPackage(input_zip, output_zip):
     script.Mount("/system")
     script.RunBackup("backup")
     script.Unmount("/system")
-
-  script.ShowProgress(0.5, 0)
+  script.ShowProgress(1, 15)
 
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
 
+  script.Print("                                        ");
+  script.Print("                                        ");
+  script.Print("                                        ");
   script.Print("                                        ");
   script.Print(" _____________       _____              ");
   script.Print(" ___    |__  /__________(_)___________  ");
@@ -466,6 +468,9 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.Print("       _  _, _// /_/ /  / / / / /       ");
   script.Print("       /_/ |_| \____//_/ /_/ /_/        ");
   script.Print("                                        ");
+  script.Print("                                        ");
+  script.Print("                                        ");
+  script.Print("           Built with LINARO            ");
   script.Print("                                        ");
   script.Print("                                        ");
 
@@ -490,21 +495,18 @@ def WriteFullOTAPackage(input_zip, output_zip):
   #                                       OPTIONS.input_tmp, "RECOVERY")
   #MakeRecoveryPatch(OPTIONS.input_tmp, output_zip, recovery_img, boot_img)
 
+  script.ShowProgress(1, 15)
   Item.GetMetadata(input_zip)
   Item.Get("system").SetPermissions(script)
 
   common.CheckSize(boot_img.data, "boot.img", OPTIONS.info_dict)
   common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
-  script.ShowProgress(0.2, 0)
 
   if OPTIONS.backuptool:
-    script.ShowProgress(0.2, 10)
     script.RunBackup("restore")
 
-  script.ShowProgress(0.2, 10)
   script.WriteRawImage("/boot", "boot.img")
 
-  script.ShowProgress(0.1, 0)
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
